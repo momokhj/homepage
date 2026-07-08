@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나도-너도-모두 | 연구대회 아카이브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gothic+A1:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1a2238;
+    --paper:#f7f4ed;
+    --na:#e8624a;
+    --neo:#3aa17e;
+    --modu:#4a6fd1;
+    --muted:#6b6f7e;
+    --line:rgba(26,34,56,.12);
+    --card:#ffffff;
+    --maxw:1080px;
+    --radius:16px;
+    --gap:18px;
+    --secpad:64px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Gothic A1',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  header{background:var(--ink);color:var(--paper);padding:72px 0 64px;position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 20% 30%,rgba(232,98,74,.22),transparent 40%),
+    radial-gradient(circle at 55% 70%,rgba(58,161,126,.20),transparent 42%),
+    radial-gradient(circle at 85% 35%,rgba(74,111,209,.22),transparent 42%)}
+  .hero-inner{position:relative;z-index:1}
+  .eyebrow{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:rgba(247,244,237,.7);font-weight:500;margin-bottom:20px}
+  h1{font-family:'Gowun Batang',serif;font-size:clamp(38px,7vw,68px);font-weight:700;line-height:1.15;letter-spacing:-1px}
+  h1 .na{color:var(--na)} h1 .neo{color:var(--neo)} h1 .modu{color:var(--modu)}
+  .subtitle{margin-top:22px;font-size:clamp(15px,2.4vw,19px);color:rgba(247,244,237,.82);font-weight:300;max-width:600px}
+  .meta{margin-top:34px;display:flex;flex-wrap:wrap;gap:10px}
+  .tag{font-size:13px;padding:7px 15px;border-radius:100px;border:1px solid rgba(247,244,237,.28);color:rgba(247,244,237,.9);font-weight:400}
+
+  nav{position:sticky;top:0;z-index:20;background:rgba(247,244,237,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;gap:6px;padding:12px 0;overflow-x:auto}
+  nav a{white-space:nowrap;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;padding:8px 16px;border-radius:8px;transition:.2s}
+  nav a:hover{background:rgba(26,34,56,.06);color:var(--ink)}
+
+  section{padding:var(--secpad) 0;border-bottom:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sec-num{font-family:'Gowun Batang',serif;font-size:15px;color:var(--muted);font-weight:700}
+  h2{font-family:'Gowun Batang',serif;font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.5px}
+  .sec-desc{color:var(--muted);margin:14px 0 34px;max-width:640px;font-weight:300}
+
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+  .pill{background:var(--card);border-radius:var(--radius);padding:28px 24px;border:1px solid var(--line);position:relative}
+  .pill .dot{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-family:'Gowun Batang',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px}
+  .pill.na .dot{background:var(--na)} .pill.neo .dot{background:var(--neo)} .pill.modu .dot{background:var(--modu)}
+  .pill h3{font-size:19px;margin-bottom:8px}
+  .pill p{font-size:14px;color:var(--muted);font-weight:300}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--gap)}
+  .res{background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);transition:.25s;display:flex;flex-direction:column}
+  .res:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(26,34,56,.1)}
+  .res .thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#e9e5db,#d8d3c7);display:grid;place-items:center;color:var(--muted);font-size:13px;position:relative;overflow:hidden}
+  .res .thumb img{width:100%;height:100%;object-fit:cover}
+  .res .kind{position:absolute;top:12px;left:12px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;background:rgba(26,34,56,.85);color:#fff;letter-spacing:.5px}
+  .res .body{padding:18px 18px 20px;display:flex;flex-direction:column;flex:1}
+  .res h4{font-size:16px;margin-bottom:6px}
+  .res .body p{font-size:13px;color:var(--muted);font-weight:300;flex:1}
+  .res .btns{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .btn{font-size:13px;font-weight:600;text-decoration:none;padding:9px 14px;border-radius:9px;transition:.2s;display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:none}
+  .btn-fill{background:var(--ink);color:var(--paper)}
+  .btn-fill:hover{background:#2a3554}
+  .btn-line{border:1px solid var(--line);color:var(--ink);background:transparent}
+  .btn-line:hover{background:rgba(26,34,56,.05)}
+
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--gap)}
+  .gallery .ph{aspect-ratio:1;border-radius:var(--radius);background:linear-gradient(135deg,#e9e5db,#d8d3c7);display:grid;place-items:center;color:var(--muted);font-size:13px;border:1px solid var(--line);overflow:hidden}
+  .gallery .ph img{width:100%;height:100%;object-fit:cover}
+
+  .applist{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--gap)}
+  .app{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;text-decoration:none;color:var(--ink);transition:.2s;display:flex;align-items:center;gap:14px}
+  .app:hover{border-color:var(--modu);transform:translateY(-3px)}
+  .app .ic{width:44px;height:44px;border-radius:11px;background:rgba(74,111,209,.12);display:grid;place-items:center;font-size:20px;flex-shrink:0}
+  .app h4{font-size:15px}
+  .app span{font-size:12px;color:var(--muted)}
+
+  footer{padding:48px 0;text-align:center;color:var(--muted);font-size:13px;font-weight:300}
+  footer strong{color:var(--ink);font-weight:600}
+
+  @media(max-width:640px){.three{grid-template-columns:1fr}section{padding:48px 0}}
+
+  /* ============ 관리자(편집) 모드 ============ */
+  .hint{display:none;font-size:11px;color:var(--modu);font-weight:600;margin-top:6px;background:rgba(74,111,209,.10);padding:4px 9px;border-radius:6px}
+  body.editing .hint{display:inline-block}
+
+  body.editing [data-edit]{outline:2px dashed rgba(74,111,209,.55);outline-offset:3px;border-radius:4px;cursor:text;transition:.15s}
+  body.editing [data-edit]:hover{background:rgba(74,111,209,.06)}
+  body.editing [data-edit]:focus{outline:2px solid var(--modu);background:rgba(74,111,209,.06)}
+
+  .link-edit{display:none}
+  body.editing .link-edit{display:block;margin-top:10px}
+  body.editing .link-edit input{width:100%;font-size:12px;padding:8px 10px;border:1px solid var(--modu);border-radius:8px;font-family:inherit;margin-bottom:4px}
+  body.editing .link-edit label{font-size:11px;color:var(--muted);font-weight:600;display:block;margin-bottom:3px}
+
+  #lockBtn{position:fixed;right:20px;bottom:20px;z-index:50;width:56px;height:56px;border-radius:50%;background:var(--ink);color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 6px 20px rgba(26,34,56,.3);transition:.2s}
+  #lockBtn:hover{transform:scale(1.08)}
+
+  #toolbar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--ink);color:#fff;padding:14px 24px;display:none;align-items:center;gap:16px;box-shadow:0 -4px 20px rgba(0,0,0,.2);flex-wrap:wrap}
+  body.editing #toolbar{display:flex}
+  #toolbar .status{font-size:14px;font-weight:600}
+  #toolbar .steps{font-size:12px;color:rgba(255,255,255,.72);flex:1;min-width:200px;line-height:1.4}
+  #toolbar button{font-size:14px;font-weight:700;padding:11px 20px;border-radius:10px;border:none;cursor:pointer}
+  .save-btn{background:var(--neo);color:#fff}
+  .save-btn:hover{background:#2f8a69}
+  .exit-btn{background:rgba(255,255,255,.15);color:#fff}
+  .exit-btn:hover{background:rgba(255,255,255,.25)}
+
+  /* 디자인 도구모음 (편집 모드에서 상단 고정) */
+  #designbar{position:fixed;left:0;right:0;top:0;z-index:70;background:#fff;border-bottom:1px solid var(--line);padding:10px 20px;display:none;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 4px 16px rgba(26,34,56,.08)}
+  body.editing #designbar{display:flex}
+  #designbar .grp{display:flex;align-items:center;gap:6px}
+  #designbar .glabel{font-size:11px;color:var(--muted);font-weight:700}
+  #designbar select,#designbar .cbtn{font-size:13px;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;font-family:inherit}
+  #designbar .szbtn{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;font-weight:700;font-size:15px;line-height:1}
+  #designbar .szbtn:hover{background:rgba(26,34,56,.05)}
+  #designbar .swatch{width:26px;height:26px;border-radius:7px;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0}
+  #designbar .divider{width:1px;height:24px;background:var(--line)}
+  #designbar .tip{font-size:11px;color:var(--modu);font-weight:600;flex:1;min-width:160px}
+  body.editing header{padding-top:130px}
+  #designbar .themebtn{font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;border:none;background:var(--modu);color:#fff;cursor:pointer}
+  #designbar .themebtn:hover{filter:brightness(1.08)}
+
+  /* 테마/레이아웃 패널 (오른쪽에서 슬라이드) */
+  #themePanel{position:fixed;top:0;right:-360px;bottom:0;width:340px;max-width:88vw;z-index:75;background:#fff;box-shadow:-6px 0 30px rgba(26,34,56,.18);transition:right .3s;overflow-y:auto;padding:24px 22px 100px}
+  #themePanel.open{right:0}
+  #themePanel h3{font-family:'Gowun Batang',serif;font-size:20px;margin-bottom:4px}
+  #themePanel .psub{font-size:12px;color:var(--muted);margin-bottom:22px}
+  #themePanel .block{border-top:1px solid var(--line);padding:18px 0}
+  #themePanel .block:first-of-type{border-top:none;padding-top:0}
+  #themePanel .blabel{font-size:13px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+  #themePanel .crow{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+  #themePanel .crow span{font-size:13px;color:var(--ink)}
+  #themePanel .crow input[type=color]{width:38px;height:30px;border:1px solid var(--line);border-radius:7px;padding:1px;cursor:pointer;background:#fff}
+  #themePanel .srow{margin-bottom:14px}
+  #themePanel .srow label{font-size:12px;color:var(--muted);display:block;margin-bottom:5px}
+  #themePanel .srow input[type=range]{width:100%}
+  #themePanel .segrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+  #themePanel .seg{flex:1;min-width:60px;font-size:12px;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:pointer;text-align:center;font-weight:600}
+  #themePanel .seg.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+  #themePanel .secitem{display:flex;align-items:center;gap:8px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;margin-bottom:7px;font-size:13px;background:#fafafa}
+  #themePanel .secitem .nm{flex:1}
+  #themePanel .secitem button{width:28px;height:28px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer;font-size:13px;font-weight:700}
+  #themePanel .secitem button:hover{background:rgba(26,34,56,.05)}
+  #themePanel .secitem.hidden-sec{opacity:.45}
+  #themePanel .resetbtn{width:100%;margin-top:8px;padding:10px;border:1px solid var(--na);color:var(--na);background:#fff;border-radius:9px;font-weight:700;font-size:13px;cursor:pointer}
+  #panelClose{position:absolute;top:16px;right:16px;width:32px;height:32px;border:none;background:rgba(26,34,56,.06);border-radius:50%;font-size:16px;cursor:pointer}
+
+  /* 섹션 추가 버튼 (도구모음) */
+  #designbar .addsecbtn{font-size:13px;font-weight:700;padding:8px 14px;border-radius:8px;border:none;background:var(--neo);color:#fff;cursor:pointer}
+  #designbar .addsecbtn:hover{filter:brightness(1.08)}
+
+  /* 섹션 유형 선택 모달 */
+  #typeModal{display:none;position:fixed;inset:0;z-index:85;background:rgba(26,34,56,.55);align-items:center;justify-content:center}
+  #typeModal.show{display:flex}
+  .type-box{background:#fff;border-radius:18px;padding:28px;width:min(440px,92vw)}
+  .type-box h3{font-family:'Gowun Batang',serif;font-size:21px;margin-bottom:6px}
+  .type-box .tsub{font-size:13px;color:var(--muted);margin-bottom:20px}
+  .type-opts{display:grid;gap:12px}
+  .type-opt{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;transition:.15s;text-align:left;background:#fff}
+  .type-opt:hover{border-color:var(--modu);background:rgba(74,111,209,.04)}
+  .type-opt .tic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+  .type-opt.card .tic{background:rgba(232,98,74,.12)}
+  .type-opt.link .tic{background:rgba(74,111,209,.12)}
+  .type-opt.photo .tic{background:rgba(58,161,126,.12)}
+  .type-opt h4{font-size:15px;margin-bottom:2px}
+  .type-opt p{font-size:12px;color:var(--muted)}
+  .type-box .tcancel{width:100%;margin-top:18px;padding:11px;border:none;background:#eee;border-radius:10px;font-weight:700;cursor:pointer}
+
+  /* 섹션 삭제 버튼 (편집 모드, 섹션 우상단) */
+  .sec-del{display:none}
+  body.editing .sec-del{display:inline-flex;align-items:center;gap:5px;position:absolute;top:14px;right:0;font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;border:1px solid var(--na);color:var(--na);background:#fff;cursor:pointer;z-index:5}
+  body.editing section{position:relative}
+  .sec-del:hover{background:var(--na);color:#fff}
+
+  /* 항목 추가/삭제 (편집 모드) */
+  .item-add{display:none}
+  body.editing .item-add{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:13px;font-weight:700;padding:10px 16px;border-radius:10px;border:1.5px dashed var(--modu);color:var(--modu);background:#fff;cursor:pointer}
+  .item-add:hover{background:rgba(74,111,209,.06)}
+  .item-del{display:none}
+  body.editing .item-del{display:grid;place-items:center;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;border:none;background:var(--na);color:#fff;font-size:14px;cursor:pointer;z-index:6}
+  .app-wrap,.res,.ph-wrap{position:relative}
+
+  #loginModal{display:none;position:fixed;inset:0;z-index:80;background:rgba(26,34,56,.55);align-items:center;justify-content:center}
+  #loginModal.show{display:flex}
+  .login-box{background:#fff;border-radius:18px;padding:32px;width:min(360px,90vw);text-align:center}
+  .login-box h3{font-family:'Gowun Batang',serif;font-size:22px;margin-bottom:8px}
+  .login-box p{font-size:13px;color:var(--muted);margin-bottom:20px}
+  .login-box input{width:100%;padding:13px;font-size:16px;border:1px solid var(--line);border-radius:10px;text-align:center;margin-bottom:14px}
+  .login-box .row{display:flex;gap:8px}
+  .login-box button{flex:1;padding:12px;border-radius:10px;border:none;font-weight:700;cursor:pointer;font-size:14px}
+  .login-box .go{background:var(--ink);color:#fff}
+  .login-box .cancel{background:#eee;color:var(--ink)}
+  .err{color:var(--na);font-size:12px;min-height:16px;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hero-inner">
+    <div class="eyebrow" data-edit>제20회 디지털교육연구대회 · 일반화 자료</div>
+    <span class="hint">↑ 클릭해서 문구를 고치세요</span>
+    <h1 data-edit>나도, 너도,<br>모두야</h1>
+    <span class="hint">↑ 큰 제목입니다. 글자를 고쳐보세요</span>
+    <p class="subtitle" data-edit>앱으로 만나는 시민교육 — 특수교육 대상 학생을 위한 맞춤형 웹앱 기반 사회성 교육 프로젝트의 모든 자료를 한곳에 모았습니다.</p>
+    <span class="hint">↑ 소개 문구</span>
+    <div class="meta">
+      <span class="tag" data-edit>인천서희학교</span>
+      <span class="tag" data-edit>달인LAB</span>
+      <span class="tag" data-edit>중도·중복장애</span>
+      <span class="tag" data-edit>바이브코딩</span>
+    </div>
+    <span class="hint">↑ 태그(꼬리표). 각각 눌러서 고칠 수 있어요</span>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="#about">프로젝트 소개</a>
+    <a href="#apps">웹앱 바로가기</a>
+    <a href="#materials">수업 자료</a>
+    <a href="#gallery">활동 사진</a>
+    <a href="#report">연구 보고서</a>
+  </div>
+</nav>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2 data-edit>프로젝트 소개</h2></div>
+    <p class="sec-desc" data-edit>'나'에서 시작해 '너'를 만나고 '모두'로 확장되는 시민성 — 학생 한 명 한 명의 눈높이에 맞춘 웹앱으로 사회성을 키웁니다.</p>
+    <div class="three">
+      <div class="pill na"><div class="dot">나</div><h3 data-edit>나를 알기</h3><p data-edit>내 감정과 선택을 표현하고, 스스로 결정하는 힘을 기릅니다.</p></div>
+      <div class="pill neo"><div class="dot">너</div><h3 data-edit>너를 만나기</h3><p data-edit>친구와 인사하고 협력하며 관계 맺는 법을 연습합니다.</p></div>
+      <div class="pill modu"><div class="dot">모두</div><h3 data-edit>모두와 살기</h3><p data-edit>카페·영화관·우리 동네 등 지역사회로 배움을 넓힙니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="apps">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2 data-edit>웹앱 바로가기</h2></div>
+    <p class="sec-desc" data-edit>클릭하면 바로 실행됩니다. 태블릿·PC 모두 지원하며, 교사용 설정에서 학생 수준에 맞게 조절할 수 있어요.</p>
+    <div class="applist">
+      <div class="app-wrap">
+        <a class="app" data-link href="#" target="_blank"><div class="ic">☕</div><div><h4 data-edit>카페 주문 키오스크</h4><span data-edit>기능적 생활기술</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+      </div>
+      <div class="app-wrap">
+        <a class="app" data-link href="#" target="_blank"><div class="ic">🎬</div><div><h4 data-edit>CGV 영화관 키오스크</h4><span data-edit>지역사회 적응</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+      </div>
+      <div class="app-wrap">
+        <a class="app" data-link href="#" target="_blank"><div class="ic">🗺️</div><div><h4 data-edit>우리 동네 미로</h4><span data-edit>사회과 연계</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+      </div>
+      <div class="app-wrap">
+        <a class="app" data-link href="#" target="_blank"><div class="ic">🔢</div><div><h4 data-edit>넘버블록스 수학</h4><span data-edit>수 개념</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+      </div>
+      <div class="app-wrap">
+        <a class="app" data-link href="#" target="_blank"><div class="ic">✍️</div><div><h4 data-edit>한글 자모 쓰기</h4><span data-edit>문해 기초</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+      </div>
+      <div class="app-wrap">
+        <a class="app" data-link href="#" target="_blank"><div class="ic">👋</div><div><h4 data-edit>친구야 놀자!</h4><span data-edit>사회적 상호작용</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="materials">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2 data-edit>수업 자료</h2></div>
+    <p class="sec-desc" data-edit>활동지·지도안·PPT를 자유롭게 내려받아 사용하세요.</p>
+    <div class="grid">
+      <div class="res">
+        <div class="thumb"><span class="kind" data-edit>활동지</span>미리보기 이미지</div>
+        <div class="body">
+          <h4 data-edit>카페 주문 활동지</h4>
+          <p data-edit>키오스크 수업과 연계한 순서 카드·붙임 자료 세트입니다.</p>
+          <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
+          <div class="link-edit"><label>다운로드 링크 (구글 드라이브 등)</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="thumb"><span class="kind" data-edit>지도안</span>미리보기 이미지</div>
+        <div class="body">
+          <h4 data-edit>교수·학습 지도안</h4>
+          <p data-edit>영화관 이용하기 차시별 지도안(2차시)입니다.</p>
+          <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
+          <div class="link-edit"><label>다운로드 링크 (구글 드라이브 등)</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="thumb"><span class="kind" data-edit>PPT</span>미리보기 이미지</div>
+        <div class="body">
+          <h4 data-edit>스토리텔링 PPT</h4>
+          <p data-edit>'우리 동네' 이야기 수업 자료입니다.</p>
+          <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
+          <div class="link-edit"><label>다운로드 링크 (구글 드라이브 등)</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2 data-edit>활동 사진</h2></div>
+    <p class="sec-desc" data-edit>학생 초상권 보호를 위해 얼굴이 드러나지 않는 사진만 게시합니다.</p>
+    <div class="gallery">
+      <div class="ph-wrap"><div class="ph" data-photo>사진 1</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진 2</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진 3</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진 4</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진 5</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진 6</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="report">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2 data-edit>연구 보고서</h2></div>
+    <p class="sec-desc" data-edit>연구의 배경·설계·결과를 담은 자료입니다.</p>
+    <div class="grid">
+      <div class="res">
+        <div class="thumb"><span class="kind" data-edit>PDF</span>보고서 표지</div>
+        <div class="body">
+          <h4 data-edit>연구대회 보고서</h4>
+          <p data-edit>나도-너도-모두 시민교육 프로젝트 전체 보고서입니다.</p>
+          <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
+          <div class="link-edit"><label>다운로드 링크</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+        </div>
+      </div>
+      <div class="res">
+        <div class="thumb"><span class="kind" data-edit>포스터</span>A0 포스터</div>
+        <div class="body">
+          <h4 data-edit>연구 포스터</h4>
+          <p data-edit>사회성 향상 효과를 요약한 A0 포스터입니다.</p>
+          <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
+          <div class="link-edit"><label>다운로드 링크</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong data-edit>나도-너도-모두야</strong> · <span data-edit>인천서희학교 달인LAB</span></p>
+    <p style="margin-top:6px" data-edit>제20회 디지털교육연구대회 일반화 자료 · 2026</p>
+  </div>
+</footer>
+
+<button id="lockBtn" title="관리자 모드">🔒</button>
+
+<div id="designbar">
+  <div class="grp">
+    <span class="glabel">글꼴</span>
+    <select id="fontSel">
+      <option value="">(기본)</option>
+      <option value="'Gothic A1',sans-serif">고딕(깔끔)</option>
+      <option value="'Gowun Batang',serif">명조(부드러움)</option>
+    </select>
+  </div>
+  <div class="divider"></div>
+  <div class="grp">
+    <span class="glabel">크기</span>
+    <button class="szbtn" id="szDown" title="작게">−</button>
+    <button class="szbtn" id="szUp" title="크게">＋</button>
+  </div>
+  <div class="divider"></div>
+  <div class="grp">
+    <span class="glabel">색상</span>
+    <button class="swatch" style="background:#1a2238" data-color="#1a2238" title="먹색"></button>
+    <button class="swatch" style="background:#e8624a" data-color="#e8624a" title="나-주황"></button>
+    <button class="swatch" style="background:#3aa17e" data-color="#3aa17e" title="너-초록"></button>
+    <button class="swatch" style="background:#4a6fd1" data-color="#4a6fd1" title="모두-파랑"></button>
+    <input type="color" id="customColor" class="swatch" style="padding:0" title="직접 고르기">
+  </div>
+  <div class="divider"></div>
+  <button class="themebtn" id="openTheme">🎨 테마·레이아웃</button>
+  <button class="addsecbtn" id="addSecBtn">＋ 섹션 추가</button>
+  <span class="tip">✨ 글자를 드래그해 선택한 뒤 위 버튼을 누르세요</span>
+</div>
+
+<div id="themePanel">
+  <button id="panelClose">✕</button>
+  <h3>🎨 테마 · 레이아웃</h3>
+  <p class="psub">홈페이지 전체 분위기를 한 번에 바꿔요. 바꾸는 즉시 화면에 보입니다.</p>
+
+  <div class="block">
+    <div class="blabel">🎨 홈페이지 색상</div>
+    <div class="crow"><span>바탕색</span><input type="color" id="cPaper" value="#f7f4ed"></div>
+    <div class="crow"><span>글자·강조 먹색</span><input type="color" id="cInk" value="#1a2238"></div>
+    <div class="crow"><span>나 (주황)</span><input type="color" id="cNa" value="#e8624a"></div>
+    <div class="crow"><span>너 (초록)</span><input type="color" id="cNeo" value="#3aa17e"></div>
+    <div class="crow"><span>모두 (파랑)</span><input type="color" id="cModu" value="#4a6fd1"></div>
+  </div>
+
+  <div class="block">
+    <div class="blabel">🖼️ 색 조합 추천</div>
+    <div class="segrow">
+      <button class="seg" data-preset="warm">따뜻한</button>
+      <button class="seg" data-preset="cool">차분한</button>
+      <button class="seg" data-preset="dark">다크</button>
+      <button class="seg" data-preset="default">기본</button>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="blabel">📐 레이아웃</div>
+    <div class="srow">
+      <label>본문 폭 <span id="widthVal">보통</span></label>
+      <input type="range" id="rWidth" min="900" max="1280" step="40" value="1080">
+    </div>
+    <div class="srow">
+      <label>카드 모서리 둥글기 <span id="radVal">16px</span></label>
+      <input type="range" id="rRadius" min="0" max="28" step="2" value="16">
+    </div>
+    <div class="srow">
+      <label>카드 사이 간격 <span id="gapVal">18px</span></label>
+      <input type="range" id="rGap" min="8" max="34" step="2" value="18">
+    </div>
+    <div class="srow">
+      <label>섹션 위아래 여백 <span id="padVal">64px</span></label>
+      <input type="range" id="rPad" min="36" max="100" step="4" value="64">
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="blabel">🔀 섹션 순서 · 표시</div>
+    <div id="secList"></div>
+  </div>
+
+  <button class="resetbtn" id="resetTheme">↩ 처음 상태로 되돌리기</button>
+</div>
+
+<div id="typeModal">
+  <div class="type-box">
+    <h3>새 섹션 만들기</h3>
+    <p class="tsub">어떤 종류의 섹션을 추가할까요?</p>
+    <div class="type-opts">
+      <button class="type-opt card" data-type="card">
+        <div class="tic">🗂️</div>
+        <div><h4>카드형 (자료 다운로드)</h4><p>활동지·PDF·PPT 등을 카드로 나열하고 다운로드 버튼을 붙여요.</p></div>
+      </button>
+      <button class="type-opt link" data-type="link">
+        <div class="tic">🔗</div>
+        <div><h4>링크형 (바로가기)</h4><p>앱·사이트로 이동하는 버튼들을 아이콘과 함께 나열해요.</p></div>
+      </button>
+      <button class="type-opt photo" data-type="photo">
+        <div class="tic">🖼️</div>
+        <div><h4>사진형 (갤러리)</h4><p>이미지를 격자로 배치하는 사진 갤러리를 만들어요.</p></div>
+      </button>
+    </div>
+    <button class="tcancel" id="typeCancel">취소</button>
+  </div>
+</div>
+
+<div id="toolbar">
+  <span class="status">✏️ 편집 중</span>
+  <span class="steps">고칠 곳을 클릭해서 바꾸세요 → 다 되면 <b>저장</b>을 눌러 파일을 내려받고, 그 파일을 홈페이지에 다시 올리면 끝!</span>
+  <button class="save-btn" id="saveBtn">💾 저장 (파일 내려받기)</button>
+  <button class="exit-btn" id="exitBtn">나가기</button>
+</div>
+
+<div id="loginModal">
+  <div class="login-box">
+    <h3>관리자 모드</h3>
+    <p>비밀번호를 입력하면 내용을 직접 고칠 수 있어요.</p>
+    <input type="password" id="pw" placeholder="비밀번호" autocomplete="off">
+    <div class="err" id="pwErr"></div>
+    <div class="row">
+      <button class="cancel" id="cancelLogin">취소</button>
+      <button class="go" id="goLogin">들어가기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ▼▼ 비밀번호를 원하는 것으로 바꾸세요 ▼▼
+  const ADMIN_PW = 'sh2026';
+
+  const body = document.body;
+  const modal = document.getElementById('loginModal');
+
+  function applyLinks(){
+    document.querySelectorAll('[data-link-input]').forEach(input=>{
+      const scope = input.closest('.app-wrap, .res');
+      if(!scope) return;
+      const a = scope.querySelector('[data-link]');
+      if(a && input.value.trim()) a.setAttribute('href', input.value.trim());
+    });
+    document.querySelectorAll('[data-photo-input]').forEach(input=>{
+      const scope = input.closest('.ph-wrap');
+      if(!scope) return;
+      const ph = scope.querySelector('[data-photo]');
+      if(ph && input.value.trim()){
+        ph.innerHTML = '<img src="'+input.value.trim()+'" alt="활동 사진">';
+      }
+    });
+  }
+
+  document.getElementById('lockBtn').onclick = ()=>{
+    if(body.classList.contains('editing')) return;
+    modal.classList.add('show');
+    document.getElementById('pw').focus();
+  };
+  document.getElementById('cancelLogin').onclick = ()=> modal.classList.remove('show');
+  document.getElementById('goLogin').onclick = login;
+  let composing = false;
+  const pwInput = document.getElementById('pw');
+  pwInput.addEventListener('compositionstart', ()=> composing = true);
+  pwInput.addEventListener('compositionend', ()=> composing = false);
+  pwInput.addEventListener('keydown', e=>{
+    if(e.key==='Enter' && !composing && !e.isComposing) login();
+  });
+
+  function login(){
+    const val = document.getElementById('pw').value.trim().normalize('NFC');
+    if(val === ADMIN_PW.normalize('NFC')){
+      modal.classList.remove('show');
+      body.classList.add('editing');
+      injectSectionControls();
+      document.querySelectorAll('[data-edit]').forEach(el=> el.setAttribute('contenteditable','true'));
+      document.getElementById('lockBtn').style.display='none';
+    } else {
+      document.getElementById('pwErr').textContent = '비밀번호가 맞지 않아요.';
+    }
+  }
+
+  document.getElementById('exitBtn').onclick = ()=>{
+    applyLinks();
+    document.querySelectorAll('[data-edit]').forEach(el=> el.removeAttribute('contenteditable'));
+    body.classList.remove('editing');
+    document.getElementById('lockBtn').style.display='block';
+  };
+
+  document.getElementById('saveBtn').onclick = ()=>{
+    applyLinks();
+    document.getElementById('themePanel').classList.remove('open');
+    document.querySelectorAll('[data-edit]').forEach(el=> el.removeAttribute('contenteditable'));
+    body.classList.remove('editing');
+    document.querySelectorAll('[data-link-input],[data-photo-input]').forEach(inp=>{
+      if(inp.value) inp.setAttribute('value', inp.value);
+    });
+    // 내보낼 복제본에서 편집 전용 버튼 제거
+    const clone = document.documentElement.cloneNode(true);
+    clone.querySelectorAll('.sec-del, .item-del, .item-add').forEach(el=> el.remove());
+    const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+    const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+    body.classList.add('editing');
+    document.querySelectorAll('[data-edit]').forEach(el=> el.setAttribute('contenteditable','true'));
+    alert('index.html 파일이 내려받아졌어요!\n이 파일을 홈페이지(GitHub/Vercel)에 올리면 반영됩니다.');
+  };
+
+  /* ===== 디자인 도구 (글꼴·크기·색상) ===== */
+  let lastFocused = null;
+  document.addEventListener('focusin', e=>{
+    if(e.target.hasAttribute && e.target.hasAttribute('data-edit')) lastFocused = e.target;
+  });
+  document.addEventListener('click', e=>{
+    const ed = e.target.closest && e.target.closest('[data-edit]');
+    if(ed) lastFocused = ed;
+  });
+
+  function wrapSelection(styleName, value){
+    const sel = window.getSelection();
+    if(sel && sel.rangeCount && !sel.isCollapsed && sel.toString().trim()){
+      const range = sel.getRangeAt(0);
+      const span = document.createElement('span');
+      span.style[styleName] = value;
+      try{
+        span.appendChild(range.extractContents());
+        range.insertNode(span);
+        sel.removeAllRanges();
+      }catch(err){
+        if(lastFocused) lastFocused.style[styleName] = value;
+      }
+    } else if(lastFocused){
+      lastFocused.style[styleName] = value;
+    } else {
+      alert('먼저 바꿀 글자를 클릭하거나 드래그해서 선택하세요.');
+    }
+  }
+
+  document.getElementById('fontSel').onchange = function(){
+    if(this.value) wrapSelection('fontFamily', this.value);
+    this.value='';
+  };
+
+  function getSelectionTarget(){
+    const sel = window.getSelection();
+    if(sel && sel.rangeCount && !sel.isCollapsed && sel.toString().trim()){
+      let node = sel.anchorNode;
+      while(node && node.nodeType!==1) node = node.parentNode;
+      return node;
+    }
+    return lastFocused;
+  }
+  function changeSize(delta){
+    const target = getSelectionTarget();
+    if(!target){ alert('먼저 바꿀 글자를 클릭하거나 선택하세요.'); return; }
+    const cur = parseFloat(window.getComputedStyle(target).fontSize) || 16;
+    const next = Math.max(10, Math.min(90, cur + delta));
+    const sel = window.getSelection();
+    if(sel && sel.rangeCount && !sel.isCollapsed && sel.toString().trim()){
+      wrapSelection('fontSize', next+'px');
+    } else if(lastFocused){
+      lastFocused.style.fontSize = next+'px';
+    }
+  }
+  document.getElementById('szUp').onclick = ()=> changeSize(3);
+  document.getElementById('szDown').onclick = ()=> changeSize(-3);
+
+  document.querySelectorAll('#designbar .swatch[data-color]').forEach(btn=>{
+    btn.onclick = ()=> wrapSelection('color', btn.dataset.color);
+  });
+  document.getElementById('customColor').oninput = function(){
+    wrapSelection('color', this.value);
+  };
+
+  /* ===== 테마 · 레이아웃 패널 ===== */
+  const root = document.documentElement;
+  const panel = document.getElementById('themePanel');
+  document.getElementById('openTheme').onclick = ()=> panel.classList.add('open');
+  document.getElementById('panelClose').onclick = ()=> panel.classList.remove('open');
+
+  function setVar(name, val){ root.style.setProperty(name, val); }
+
+  // 색상 연동
+  const colorMap = {cPaper:'--paper', cInk:'--ink', cNa:'--na', cNeo:'--neo', cModu:'--modu'};
+  Object.entries(colorMap).forEach(([id,varName])=>{
+    document.getElementById(id).oninput = function(){ setVar(varName, this.value); };
+  });
+
+  // 색 조합 프리셋
+  const presets = {
+    warm:   {'--paper':'#fdf6ee','--ink':'#3a2417','--na':'#e8624a','--neo':'#e0a458','--modu':'#c96a3f'},
+    cool:   {'--paper':'#f0f4f8','--ink':'#1a2f45','--na':'#5b8def','--neo':'#3aa17e','--modu':'#6a5acd'},
+    dark:   {'--paper':'#1a1d26','--ink':'#f0f0f5','--na':'#ff7a5c','--neo':'#4ec99a','--modu':'#6b8dff'},
+    default:{'--paper':'#f7f4ed','--ink':'#1a2238','--na':'#e8624a','--neo':'#3aa17e','--modu':'#4a6fd1'}
+  };
+  document.querySelectorAll('.seg[data-preset]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const p = presets[btn.dataset.preset];
+      Object.entries(p).forEach(([k,v])=> setVar(k,v));
+      // 색상 선택기 값도 동기화
+      document.getElementById('cPaper').value=p['--paper'];
+      document.getElementById('cInk').value=p['--ink'];
+      document.getElementById('cNa').value=p['--na'];
+      document.getElementById('cNeo').value=p['--neo'];
+      document.getElementById('cModu').value=p['--modu'];
+      document.querySelectorAll('.seg[data-preset]').forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+    };
+  });
+
+  // 레이아웃 슬라이더
+  const rWidth=document.getElementById('rWidth');
+  rWidth.oninput=function(){ setVar('--maxw',this.value+'px');
+    document.getElementById('widthVal').textContent = this.value<980?'좁게':this.value>1180?'넓게':'보통'; };
+  const rRadius=document.getElementById('rRadius');
+  rRadius.oninput=function(){ setVar('--radius',this.value+'px'); document.getElementById('radVal').textContent=this.value+'px'; };
+  const rGap=document.getElementById('rGap');
+  rGap.oninput=function(){ setVar('--gap',this.value+'px'); document.getElementById('gapVal').textContent=this.value+'px'; };
+  const rPad=document.getElementById('rPad');
+  rPad.oninput=function(){ setVar('--secpad',this.value+'px'); document.getElementById('padVal').textContent=this.value+'px'; };
+
+  // 섹션 순서·표시
+  const secNames = {about:'프로젝트 소개', apps:'웹앱 바로가기', materials:'수업 자료', gallery:'활동 사진', report:'연구 보고서'};
+  const secList = document.getElementById('secList');
+  function buildSecList(){
+    secList.innerHTML='';
+    document.querySelectorAll('main-section, section[id]').forEach(sec=>{
+      const id = sec.id;
+      if(!secNames[id]) return;
+      const row = document.createElement('div');
+      row.className='secitem'+(sec.style.display==='none'?' hidden-sec':'');
+      row.innerHTML='<span class="nm">'+secNames[id]+'</span>'+
+        '<button data-act="up" title="위로">▲</button>'+
+        '<button data-act="down" title="아래로">▼</button>'+
+        '<button data-act="hide" title="숨기기/보이기">'+(sec.style.display==='none'?'🙈':'👁️')+'</button>';
+      row.querySelector('[data-act=up]').onclick=()=>{ const prev=sec.previousElementSibling; if(prev&&prev.tagName==='SECTION') sec.parentNode.insertBefore(sec,prev); buildSecList(); };
+      row.querySelector('[data-act=down]').onclick=()=>{ const next=sec.nextElementSibling; if(next&&next.tagName==='SECTION') sec.parentNode.insertBefore(next,sec); buildSecList(); };
+      row.querySelector('[data-act=hide]').onclick=()=>{ sec.style.display = sec.style.display==='none'?'':'none'; buildSecList(); };
+      secList.appendChild(row);
+    });
+  }
+  buildSecList();
+
+  // 되돌리기
+  document.getElementById('resetTheme').onclick=()=>{
+    if(!confirm('색상·레이아웃을 처음 상태로 되돌릴까요? (글자 내용은 그대로예요)')) return;
+    ['--paper','--ink','--na','--neo','--modu','--maxw','--radius','--gap','--secpad'].forEach(v=>root.style.removeProperty(v));
+    // 슬라이더·색상칸 기본값 복원
+    document.getElementById('cPaper').value='#f7f4ed';
+    document.getElementById('cInk').value='#1a2238';
+    document.getElementById('cNa').value='#e8624a';
+    document.getElementById('cNeo').value='#3aa17e';
+    document.getElementById('cModu').value='#4a6fd1';
+    rWidth.value=1080; document.getElementById('widthVal').textContent='보통';
+    rRadius.value=16; document.getElementById('radVal').textContent='16px';
+    rGap.value=18; document.getElementById('gapVal').textContent='18px';
+    rPad.value=64; document.getElementById('padVal').textContent='64px';
+    document.querySelectorAll('.seg[data-preset]').forEach(b=>b.classList.remove('on'));
+  };
+
+  /* ===== 섹션 추가 · 삭제 / 항목 추가 · 삭제 ===== */
+  const wrapMain = document.querySelector('footer');
+  let secCounter = 100;
+
+  function makeSection(type){
+    secCounter++;
+    const id = 'sec'+secCounter;
+    let inner = '';
+    if(type==='card'){
+      inner = `<div class="grid">${cardItem()}</div>
+        <button class="item-add" data-add="card">＋ 자료 카드 추가</button>`;
+    } else if(type==='link'){
+      inner = `<div class="applist">${linkItem()}</div>
+        <button class="item-add" data-add="link">＋ 바로가기 추가</button>`;
+    } else if(type==='photo'){
+      inner = `<div class="gallery">${photoItem()}${photoItem()}${photoItem()}</div>
+        <button class="item-add" data-add="photo">＋ 사진 칸 추가</button>`;
+    }
+    const sec = document.createElement('section');
+    sec.id = id;
+    sec.innerHTML = `<div class="wrap">
+      <button class="sec-del">🗑 이 섹션 삭제</button>
+      <div class="sec-head"><span class="sec-num">✎</span><h2 data-edit>새 섹션 제목</h2></div>
+      <p class="sec-desc" data-edit>여기에 섹션 설명을 적으세요.</p>
+      ${inner}
+    </div>`;
+    return sec;
+  }
+  function cardItem(){
+    return `<div class="res">
+      <button class="item-del" title="삭제">✕</button>
+      <div class="thumb"><span class="kind" data-edit>자료</span>미리보기 이미지</div>
+      <div class="body">
+        <h4 data-edit>자료 제목</h4>
+        <p data-edit>자료 설명을 적으세요.</p>
+        <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
+        <div class="link-edit"><label>다운로드 링크</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+      </div>
+    </div>`;
+  }
+  function linkItem(){
+    return `<div class="app-wrap">
+      <button class="item-del" title="삭제">✕</button>
+      <a class="app" data-link href="#" target="_blank"><div class="ic">🔗</div><div><h4 data-edit>바로가기 이름</h4><span data-edit>설명</span></div></a>
+      <div class="link-edit"><label>링크 주소 (https://...)</label><input data-link-input placeholder="주소를 붙여넣으세요"></div>
+    </div>`;
+  }
+  function photoItem(){
+    return `<div class="ph-wrap">
+      <button class="item-del" title="삭제">✕</button>
+      <div class="ph" data-photo>사진</div>
+      <div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div>
+    </div>`;
+  }
+
+  const typeModal = document.getElementById('typeModal');
+  document.getElementById('addSecBtn').onclick = ()=> typeModal.classList.add('show');
+  document.getElementById('typeCancel').onclick = ()=> typeModal.classList.remove('show');
+  document.querySelectorAll('.type-opt').forEach(opt=>{
+    opt.onclick = ()=>{
+      const sec = makeSection(opt.dataset.type);
+      wrapMain.parentNode.insertBefore(sec, wrapMain);
+      typeModal.classList.remove('show');
+      enableEditingOn(sec);
+      buildSecList();
+      sec.scrollIntoView({behavior:'smooth', block:'center'});
+    };
+  });
+
+  function enableEditingOn(scope){
+    scope.querySelectorAll('[data-edit]').forEach(el=> el.setAttribute('contenteditable','true'));
+  }
+
+  document.addEventListener('click', e=>{
+    if(!body.classList.contains('editing')) return;
+    const del = e.target.closest('.sec-del');
+    if(del){
+      const sec = del.closest('section');
+      if(confirm('이 섹션을 삭제할까요? 되돌릴 수 없어요.')){ sec.remove(); buildSecList(); }
+      return;
+    }
+    const idel = e.target.closest('.item-del');
+    if(idel){
+      const item = idel.closest('.res, .app-wrap, .ph-wrap');
+      if(item && confirm('이 항목을 삭제할까요?')) item.remove();
+      return;
+    }
+    const add = e.target.closest('.item-add');
+    if(add){
+      const type = add.dataset.add;
+      const container = add.previousElementSibling;
+      let html = type==='card'?cardItem():type==='link'?linkItem():photoItem();
+      const tmp = document.createElement('div'); tmp.innerHTML = html.trim();
+      const node = tmp.firstElementChild;
+      container.appendChild(node);
+      enableEditingOn(node);
+      return;
+    }
+  });
+
+  function injectSectionControls(){
+    document.querySelectorAll('section[id]').forEach(sec=>{
+      const wrap = sec.querySelector('.wrap');
+      if(wrap && !wrap.querySelector('.sec-del')){
+        const b = document.createElement('button');
+        b.className='sec-del'; b.textContent='🗑 이 섹션 삭제';
+        wrap.insertBefore(b, wrap.firstChild);
+      }
+      sec.querySelectorAll('.res, .app-wrap, .ph-wrap').forEach(item=>{
+        if(!item.querySelector('.item-del')){
+          const x = document.createElement('button');
+          x.className='item-del'; x.title='삭제'; x.textContent='✕';
+          item.insertBefore(x, item.firstChild);
+        }
+      });
+      const grid = sec.querySelector('.grid, .applist, .gallery');
+      if(grid && !grid.nextElementSibling?.classList?.contains('item-add')){
+        const type = grid.classList.contains('grid')?'card':grid.classList.contains('applist')?'link':'photo';
+        const label = type==='card'?'＋ 자료 카드 추가':type==='link'?'＋ 바로가기 추가':'＋ 사진 칸 추가';
+        const btn = document.createElement('button');
+        btn.className='item-add'; btn.dataset.add=type; btn.textContent=label;
+        grid.after(btn);
+      }
+    });
+  }
+
+  applyLinks();
+</script>
+
+</body>
+</html>
