@@ -190,6 +190,21 @@
   .item-del{display:none}
   body.editing .item-del{display:grid;place-items:center;position:absolute;top:8px;right:8px;width:26px;height:26px;border-radius:50%;border:none;background:var(--na);color:#fff;font-size:14px;cursor:pointer;z-index:6}
   .app-wrap,.res,.ph-wrap{position:relative}
+  /* 사진 업로드 버튼 */
+  body.editing .photo-up{display:block;margin-top:8px}
+  .photo-up{display:none}
+  .photo-up .upbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:8px 12px;border-radius:8px;border:1.5px solid var(--neo);color:var(--neo);background:#fff;cursor:pointer;width:100%;justify-content:center}
+  .photo-up .upbtn:hover{background:rgba(58,161,126,.08)}
+  .photo-up input[type=file]{display:none}
+  .photo-up .orurl{font-size:10px;color:var(--muted);text-align:center;margin:5px 0 3px}
+  /* 문서 파일 업로드 */
+  body.editing .file-up{display:block;margin-top:10px}
+  .file-up{display:none}
+  .file-up .fupbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:9px 12px;border-radius:8px;border:1.5px solid var(--na);color:var(--na);background:#fff;cursor:pointer;width:100%;justify-content:center}
+  .file-up .fupbtn:hover{background:rgba(232,98,74,.08)}
+  .file-up input[type=file]{display:none}
+  .file-up .fname{font-size:11px;color:var(--neo);font-weight:700;margin-top:5px;word-break:break-all}
+  .file-up .orurl{font-size:10px;color:var(--muted);text-align:center;margin:7px 0 3px}
 
   #loginModal{display:none;position:fixed;inset:0;z-index:80;background:rgba(26,34,56,.55);align-items:center;justify-content:center}
   #loginModal.show{display:flex}
@@ -210,15 +225,15 @@
   <div class="wrap hero-inner">
     <div class="eyebrow" data-edit>제20회 디지털교육연구대회 · 일반화 자료</div>
     <span class="hint">↑ 클릭해서 문구를 고치세요</span>
-    <h1 data-edit>나도, 너도,<br>모두야</h1>
+    <h1 data-edit>디지털 기반 '<span class="na">나도</span>-<span class="neo">너도</span>-<span class="modu">모두</span> 프로젝트'로<br>중증발달장애학생의 민주시민성 기르기</h1>
     <span class="hint">↑ 큰 제목입니다. 글자를 고쳐보세요</span>
-    <p class="subtitle" data-edit>앱으로 만나는 시민교육 — 특수교육 대상 학생을 위한 맞춤형 웹앱 기반 사회성 교육 프로젝트의 모든 자료를 한곳에 모았습니다.</p>
+    <p class="subtitle" data-edit>중증발달장애학생의 민주시민성(자율생활·대인관계·사회참여 역량)을 기르는 디지털 경험 기반 프로젝트의 모든 자료를 한곳에 모았습니다.</p>
     <span class="hint">↑ 소개 문구</span>
     <div class="meta">
-      <span class="tag" data-edit>인천서희학교</span>
-      <span class="tag" data-edit>달인LAB</span>
-      <span class="tag" data-edit>중도·중복장애</span>
-      <span class="tag" data-edit>바이브코딩</span>
+      <span class="tag" data-edit>#특수학교</span>
+      <span class="tag" data-edit>#특수학급</span>
+      <span class="tag" data-edit>#중증발달장애</span>
+      <span class="tag" data-edit>#민주시민성</span>
     </div>
     <span class="hint">↑ 태그(꼬리표). 각각 눌러서 고칠 수 있어요</span>
   </div>
@@ -237,11 +252,11 @@
 <section id="about">
   <div class="wrap">
     <div class="sec-head"><span class="sec-num">01</span><h2 data-edit>프로젝트 소개</h2></div>
-    <p class="sec-desc" data-edit>'나'에서 시작해 '너'를 만나고 '모두'로 확장되는 시민성 — 학생 한 명 한 명의 눈높이에 맞춘 웹앱으로 사회성을 키웁니다.</p>
+    <p class="sec-desc" data-edit>디지털 경험 기반 '나도-너도-모두' 프로젝트 — '나'에서 시작해 '너'를 만나고 '모두'로 확장되는 민주시민성을 기릅니다.<br><br>· 연구 대상: 특수학교 3-4학년 30명(남 20명, 여 10명), 중도중복학급 4명(남 3명, 여 1명)<br>· 연구 기간: 2026년 2월 ~ 7월<br>· 적용 교과: 사회<br>· 연구자: 공동연구(특수학교 3-4학년 전담 교사 A, 특수학교 중도중복학급 전담 교사 B)</p>
     <div class="three">
-      <div class="pill na"><div class="dot">나</div><h3 data-edit>나를 알기</h3><p data-edit>내 감정과 선택을 표현하고, 스스로 결정하는 힘을 기릅니다.</p></div>
-      <div class="pill neo"><div class="dot">너</div><h3 data-edit>너를 만나기</h3><p data-edit>친구와 인사하고 협력하며 관계 맺는 법을 연습합니다.</p></div>
-      <div class="pill modu"><div class="dot">모두</div><h3 data-edit>모두와 살기</h3><p data-edit>카페·영화관·우리 동네 등 지역사회로 배움을 넓힙니다.</p></div>
+      <div class="pill na"><div class="dot">나</div><h3 data-edit>나의 삶 (자기인식)</h3><p data-edit>자율생활 역량 — 내 감정과 선택을 표현하고 스스로 결정하는 힘을 기릅니다.</p></div>
+      <div class="pill neo"><div class="dot">너</div><h3 data-edit>관계의 삶 (관계 형성 및 규칙·규범)</h3><p data-edit>대인관계 역량 — 친구와 관계를 맺고 규칙과 규범을 익힙니다.</p></div>
+      <div class="pill modu"><div class="dot">모두</div><h3 data-edit>시민의 삶 (시민성 실천)</h3><p data-edit>사회참여 역량 — 동네를 살피고 지역사회에서 시민성을 실천합니다.</p></div>
     </div>
   </div>
 </section>
@@ -252,28 +267,28 @@
     <p class="sec-desc" data-edit>클릭하면 바로 실행됩니다. 태블릿·PC 모두 지원하며, 교사용 설정에서 학생 수준에 맞게 조절할 수 있어요.</p>
     <div class="applist">
       <div class="app-wrap">
-        <a class="app" data-link href="#" target="_blank"><div class="ic">☕</div><div><h4 data-edit>카페 주문 키오스크</h4><span data-edit>기능적 생활기술</span></div></a>
-        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+        <a class="app" data-link href="https://codepen.io/osmpopjt-the-bold/full/NPRpZwp" target="_blank"><div class="ic">💛</div><div><h4 data-edit>이상형 월드컵</h4><span data-edit>내가 좋아하는 것 선택하기</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input value="https://codepen.io/osmpopjt-the-bold/full/NPRpZwp" placeholder="앱 주소를 붙여넣으세요"></div>
       </div>
       <div class="app-wrap">
-        <a class="app" data-link href="#" target="_blank"><div class="ic">🎬</div><div><h4 data-edit>CGV 영화관 키오스크</h4><span data-edit>지역사회 적응</span></div></a>
-        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+        <a class="app" data-link href="https://codepen.io/osmpopjt-the-bold/full/jEMBXRo" target="_blank"><div class="ic">😊</div><div><h4 data-edit>나의 감정 이모지</h4><span data-edit>감정 이모지 선택</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input value="https://codepen.io/osmpopjt-the-bold/full/jEMBXRo" placeholder="앱 주소를 붙여넣으세요"></div>
       </div>
       <div class="app-wrap">
-        <a class="app" data-link href="#" target="_blank"><div class="ic">🗺️</div><div><h4 data-edit>우리 동네 미로</h4><span data-edit>사회과 연계</span></div></a>
-        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+        <a class="app" data-link href="https://claude.ai/public/artifacts/0f68541f-8502-42ef-b316-eb9b6a53fe2c" target="_blank"><div class="ic">🧩</div><div><h4 data-edit>친구 사진 퍼즐</h4><span data-edit>친구의 사진 퍼즐 맞추기</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input value="https://claude.ai/public/artifacts/0f68541f-8502-42ef-b316-eb9b6a53fe2c" placeholder="앱 주소를 붙여넣으세요"></div>
       </div>
       <div class="app-wrap">
-        <a class="app" data-link href="#" target="_blank"><div class="ic">🔢</div><div><h4 data-edit>넘버블록스 수학</h4><span data-edit>수 개념</span></div></a>
-        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+        <a class="app" data-link href="https://heartcard-henna.vercel.app/" target="_blank"><div class="ic">💌</div><div><h4 data-edit>내 마음 전하기</h4><span data-edit>친구에게 내 마음을 전해요</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input value="https://heartcard-henna.vercel.app/" placeholder="앱 주소를 붙여넣으세요"></div>
       </div>
       <div class="app-wrap">
-        <a class="app" data-link href="#" target="_blank"><div class="ic">✍️</div><div><h4 data-edit>한글 자모 쓰기</h4><span data-edit>문해 기초</span></div></a>
-        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+        <a class="app" data-link href="https://school-rule.vercel.app/?space=hallway" target="_blank"><div class="ic">📱</div><div><h4 data-edit>우리 학교 QR 탐험대</h4><span data-edit>QR코드를 스캔하여 학교 규칙 알아보기</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input value="https://school-rule.vercel.app/?space=hallway" placeholder="앱 주소를 붙여넣으세요"></div>
       </div>
       <div class="app-wrap">
-        <a class="app" data-link href="#" target="_blank"><div class="ic">👋</div><div><h4 data-edit>친구야 놀자!</h4><span data-edit>사회적 상호작용</span></div></a>
-        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input placeholder="앱 주소를 붙여넣으세요"></div>
+        <a class="app" data-link href="https://service-1045140779759.asia-east1.run.app/" target="_blank"><div class="ic">☕</div><div><h4 data-edit>카페 키오스크</h4><span data-edit>키오스크로 카페 주문하기</span></div></a>
+        <div class="link-edit"><label>이 앱의 링크 주소 (https://...)</label><input data-link-input value="https://service-1045140779759.asia-east1.run.app/" placeholder="앱 주소를 붙여넣으세요"></div>
       </div>
     </div>
   </div>
@@ -290,7 +305,7 @@
           <h4 data-edit>카페 주문 활동지</h4>
           <p data-edit>키오스크 수업과 연계한 순서 카드·붙임 자료 세트입니다.</p>
           <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
-          <div class="link-edit"><label>다운로드 링크 (구글 드라이브 등)</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+          <div class="file-up"><label class="fupbtn">📎 파일 올리기<input type="file" accept=".pdf,.hwp,.hwpx,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.png" data-doc-file></label><div class="fname" data-fname></div><div class="orurl">또는 구글 드라이브 등 링크</div><input data-link-input placeholder="파일 링크를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
         </div>
       </div>
       <div class="res">
@@ -299,7 +314,7 @@
           <h4 data-edit>교수·학습 지도안</h4>
           <p data-edit>영화관 이용하기 차시별 지도안(2차시)입니다.</p>
           <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
-          <div class="link-edit"><label>다운로드 링크 (구글 드라이브 등)</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+          <div class="file-up"><label class="fupbtn">📎 파일 올리기<input type="file" accept=".pdf,.hwp,.hwpx,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.png" data-doc-file></label><div class="fname" data-fname></div><div class="orurl">또는 구글 드라이브 등 링크</div><input data-link-input placeholder="파일 링크를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
         </div>
       </div>
       <div class="res">
@@ -308,31 +323,64 @@
           <h4 data-edit>스토리텔링 PPT</h4>
           <p data-edit>'우리 동네' 이야기 수업 자료입니다.</p>
           <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
-          <div class="link-edit"><label>다운로드 링크 (구글 드라이브 등)</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+          <div class="file-up"><label class="fupbtn">📎 파일 올리기<input type="file" accept=".pdf,.hwp,.hwpx,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.png" data-doc-file></label><div class="fname" data-fname></div><div class="orurl">또는 구글 드라이브 등 링크</div><input data-link-input placeholder="파일 링크를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="gallery">
+<section id="proj1">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">04</span><h2 data-edit>활동 사진</h2></div>
-    <p class="sec-desc" data-edit>학생 초상권 보호를 위해 얼굴이 드러나지 않는 사진만 게시합니다.</p>
+    <div class="sec-head"><span class="sec-num" style="color:var(--na)">M</span><h2 data-edit>프로젝트 1 (M) 나의 삶 속 자기 인식하기</h2></div>
+    <p class="sec-desc" data-edit>내가 좋아하는 것과 나의 감정을 알아보며 자기 인식과 자율생활 역량을 기릅니다.</p>
     <div class="gallery">
-      <div class="ph-wrap"><div class="ph" data-photo>사진 1</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
-      <div class="ph-wrap"><div class="ph" data-photo>사진 2</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
-      <div class="ph-wrap"><div class="ph" data-photo>사진 3</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
-      <div class="ph-wrap"><div class="ph" data-photo>사진 4</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
-      <div class="ph-wrap"><div class="ph" data-photo>사진 5</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
-      <div class="ph-wrap"><div class="ph" data-photo>사진 6</div><div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proj2">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num" style="color:var(--neo)">O</span><h2 data-edit>프로젝트 2 (O) 친구와 관계 형성하기</h2></div>
+    <p class="sec-desc" data-edit>친구에게 마음을 전하고 함께 어울리며 대인관계 역량을 기릅니다.</p>
+    <div class="gallery">
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proj3">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num" style="color:var(--modu)">D</span><h2 data-edit>프로젝트 3 (D) 학교의 규칙과 규범 알기</h2></div>
+    <p class="sec-desc" data-edit>QR 탐험대로 학교 공간의 규칙을 익히며 규범 의식을 기릅니다.</p>
+    <div class="gallery">
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proj4">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num" style="color:var(--ink)">U</span><h2 data-edit>프로젝트 4 (U) 동네를 살피고 시민성 실천하기</h2></div>
+    <p class="sec-desc" data-edit>카페 키오스크 등 지역사회를 경험하며 사회참여 역량과 시민성을 실천합니다.</p>
+    <div class="gallery">
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
+      <div class="ph-wrap"><div class="ph" data-photo>사진</div><div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div></div>
     </div>
   </div>
 </section>
 
 <section id="report">
   <div class="wrap">
-    <div class="sec-head"><span class="sec-num">05</span><h2 data-edit>연구 보고서</h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2 data-edit>연구 보고서</h2></div>
     <p class="sec-desc" data-edit>연구의 배경·설계·결과를 담은 자료입니다.</p>
     <div class="grid">
       <div class="res">
@@ -341,7 +389,7 @@
           <h4 data-edit>연구대회 보고서</h4>
           <p data-edit>나도-너도-모두 시민교육 프로젝트 전체 보고서입니다.</p>
           <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
-          <div class="link-edit"><label>다운로드 링크</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+          <div class="file-up"><label class="fupbtn">📎 파일 올리기<input type="file" accept=".pdf,.hwp,.hwpx,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.png" data-doc-file></label><div class="fname" data-fname></div><div class="orurl">또는 다운로드 링크</div><input data-link-input placeholder="파일 링크를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
         </div>
       </div>
       <div class="res">
@@ -350,7 +398,7 @@
           <h4 data-edit>연구 포스터</h4>
           <p data-edit>사회성 향상 효과를 요약한 A0 포스터입니다.</p>
           <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
-          <div class="link-edit"><label>다운로드 링크</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+          <div class="file-up"><label class="fupbtn">📎 파일 올리기<input type="file" accept=".pdf,.hwp,.hwpx,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.png" data-doc-file></label><div class="fname" data-fname></div><div class="orurl">또는 다운로드 링크</div><input data-link-input placeholder="파일 링크를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
         </div>
       </div>
     </div>
@@ -359,7 +407,7 @@
 
 <footer>
   <div class="wrap">
-    <p><strong data-edit>나도-너도-모두야</strong> · <span data-edit>인천서희학교 달인LAB</span></p>
+    <p><strong data-edit>나도-너도-모두 프로젝트</strong> · <span data-edit>제20회 디지털교육연구대회</span></p>
     <p style="margin-top:6px" data-edit>제20회 디지털교육연구대회 일반화 자료 · 2026</p>
   </div>
 </footer>
@@ -508,11 +556,76 @@
       const scope = input.closest('.ph-wrap');
       if(!scope) return;
       const ph = scope.querySelector('[data-photo]');
+      // 이미 업로드된 사진이 있으면 URL로 덮어쓰지 않음
+      if(ph && ph.querySelector('img[data-uploaded]')) return;
       if(ph && input.value.trim()){
         ph.innerHTML = '<img src="'+input.value.trim()+'" alt="활동 사진">';
       }
     });
   }
+
+  /* ===== 사진 파일 업로드 (Base64로 파일에 직접 저장) ===== */
+  document.addEventListener('change', e=>{
+    const fileInput = e.target.closest && e.target.closest('[data-photo-file]');
+    if(!fileInput) return;
+    const file = fileInput.files && fileInput.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ alert('이미지 파일만 올릴 수 있어요.'); return; }
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      const img = new Image();
+      img.onload = ()=>{
+        // 웹에 맞게 크기 축소 (가로 최대 1000px) + 압축
+        const maxW = 1000;
+        let w = img.width, h = img.height;
+        if(w > maxW){ h = Math.round(h * maxW / w); w = maxW; }
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        const scope = fileInput.closest('.ph-wrap');
+        const ph = scope.querySelector('[data-photo]');
+        ph.innerHTML = '<img src="'+dataUrl+'" alt="활동 사진" data-uploaded>';
+        // URL 입력칸은 비워둠 (업로드가 우선)
+        const urlInput = scope.querySelector('[data-photo-input]');
+        if(urlInput) urlInput.value = '';
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  /* ===== 문서 파일 업로드 (지도안·활동지·PPT 등) ===== */
+  document.addEventListener('change', e=>{
+    const fileInput = e.target.closest && e.target.closest('[data-doc-file]');
+    if(!fileInput) return;
+    const file = fileInput.files && fileInput.files[0];
+    if(!file) return;
+    // 용량 경고 (약 12MB 넘으면 안내)
+    if(file.size > 12*1024*1024){
+      if(!confirm('이 파일이 좀 커요('+(file.size/1024/1024).toFixed(1)+'MB).\n파일 안에 통째로 담기면 페이지가 무거워질 수 있어요.\n\n그래도 넣을까요? (큰 파일은 구글 드라이브 링크를 권장해요)')){
+        fileInput.value=''; return;
+      }
+    }
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      const dataUrl = ev.target.result; // base64 data URL
+      const scope = fileInput.closest('.res');
+      if(!scope) return;
+      const a = scope.querySelector('[data-link]');
+      if(a){
+        a.setAttribute('href', dataUrl);
+        a.setAttribute('download', file.name); // 원래 파일 이름으로 다운로드됨
+      }
+      // 파일 이름 표시
+      const fname = scope.querySelector('[data-fname]');
+      if(fname) fname.textContent = '✓ ' + file.name;
+      // 링크 입력칸은 비움 (업로드 우선)
+      const urlInput = scope.querySelector('[data-link-input]');
+      if(urlInput) urlInput.value = '';
+    };
+    reader.readAsDataURL(file);
+  });
 
   document.getElementById('lockBtn').onclick = ()=>{
     if(body.classList.contains('editing')) return;
@@ -684,27 +797,52 @@
   const rPad=document.getElementById('rPad');
   rPad.oninput=function(){ setVar('--secpad',this.value+'px'); document.getElementById('padVal').textContent=this.value+'px'; };
 
-  // 섹션 순서·표시
-  const secNames = {about:'프로젝트 소개', apps:'웹앱 바로가기', materials:'수업 자료', gallery:'활동 사진', report:'연구 보고서'};
+  // 섹션 제목을 실제 <h2>에서 읽어옴 (수정하면 자동 반영)
+  let secCounter = 100;
   const secList = document.getElementById('secList');
+  function getSecTitle(sec){
+    const h2 = sec.querySelector('h2');
+    return h2 ? h2.textContent.trim() : '(제목 없음)';
+  }
+  // 상단 메뉴바를 실제 섹션에 맞춰 다시 그림
+  function rebuildNav(){
+    const nav = document.querySelector('.nav-inner');
+    if(!nav) return;
+    nav.innerHTML='';
+    document.querySelectorAll('section[id]').forEach(sec=>{
+      if(sec.style.display==='none') return; // 숨긴 섹션은 메뉴에서도 제외
+      if(!sec.id) sec.id = 'sec'+(++secCounter);
+      const a = document.createElement('a');
+      a.href = '#'+sec.id;
+      a.textContent = getSecTitle(sec);
+      nav.appendChild(a);
+    });
+  }
   function buildSecList(){
     secList.innerHTML='';
-    document.querySelectorAll('main-section, section[id]').forEach(sec=>{
-      const id = sec.id;
-      if(!secNames[id]) return;
+    document.querySelectorAll('section[id]').forEach(sec=>{
+      if(!sec.id) sec.id = 'sec'+(++secCounter);
       const row = document.createElement('div');
       row.className='secitem'+(sec.style.display==='none'?' hidden-sec':'');
-      row.innerHTML='<span class="nm">'+secNames[id]+'</span>'+
+      row.innerHTML='<span class="nm">'+getSecTitle(sec)+'</span>'+
         '<button data-act="up" title="위로">▲</button>'+
         '<button data-act="down" title="아래로">▼</button>'+
         '<button data-act="hide" title="숨기기/보이기">'+(sec.style.display==='none'?'🙈':'👁️')+'</button>';
-      row.querySelector('[data-act=up]').onclick=()=>{ const prev=sec.previousElementSibling; if(prev&&prev.tagName==='SECTION') sec.parentNode.insertBefore(sec,prev); buildSecList(); };
-      row.querySelector('[data-act=down]').onclick=()=>{ const next=sec.nextElementSibling; if(next&&next.tagName==='SECTION') sec.parentNode.insertBefore(next,sec); buildSecList(); };
-      row.querySelector('[data-act=hide]').onclick=()=>{ sec.style.display = sec.style.display==='none'?'':'none'; buildSecList(); };
+      row.querySelector('[data-act=up]').onclick=()=>{ const prev=sec.previousElementSibling; if(prev&&prev.tagName==='SECTION') sec.parentNode.insertBefore(sec,prev); buildSecList(); rebuildNav(); };
+      row.querySelector('[data-act=down]').onclick=()=>{ const next=sec.nextElementSibling; if(next&&next.tagName==='SECTION') sec.parentNode.insertBefore(next,sec); buildSecList(); rebuildNav(); };
+      row.querySelector('[data-act=hide]').onclick=()=>{ sec.style.display = sec.style.display==='none'?'':'none'; buildSecList(); rebuildNav(); };
       secList.appendChild(row);
     });
   }
   buildSecList();
+  rebuildNav();
+
+  // 제목(h2)을 편집하면 메뉴바도 실시간으로 따라 바뀜
+  document.addEventListener('input', e=>{
+    if(e.target.matches && e.target.matches('h2[data-edit]')){
+      rebuildNav();
+    }
+  });
 
   // 되돌리기
   document.getElementById('resetTheme').onclick=()=>{
@@ -725,7 +863,6 @@
 
   /* ===== 섹션 추가 · 삭제 / 항목 추가 · 삭제 ===== */
   const wrapMain = document.querySelector('footer');
-  let secCounter = 100;
 
   function makeSection(type){
     secCounter++;
@@ -759,7 +896,7 @@
         <h4 data-edit>자료 제목</h4>
         <p data-edit>자료 설명을 적으세요.</p>
         <div class="btns"><a class="btn btn-fill" data-link href="#">다운로드</a></div>
-        <div class="link-edit"><label>다운로드 링크</label><input data-link-input placeholder="파일 링크를 붙여넣으세요"></div>
+        <div class="file-up"><label class="fupbtn">📎 파일 올리기<input type="file" accept=".pdf,.hwp,.hwpx,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.jpg,.png" data-doc-file></label><div class="fname" data-fname></div><div class="orurl">또는 다운로드 링크</div><input data-link-input placeholder="파일 링크를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
       </div>
     </div>`;
   }
@@ -774,7 +911,7 @@
     return `<div class="ph-wrap">
       <button class="item-del" title="삭제">✕</button>
       <div class="ph" data-photo>사진</div>
-      <div class="link-edit"><label>사진 주소 (이미지 링크)</label><input data-photo-input placeholder="이미지 주소를 붙여넣으세요"></div>
+      <div class="photo-up"><label class="upbtn">📷 사진 올리기<input type="file" accept="image/*" data-photo-file></label><div class="orurl">또는 이미지 주소</div><input data-photo-input placeholder="이미지 주소를 붙여넣으세요" style="width:100%;font-size:11px;padding:6px 8px;border:1px solid var(--line);border-radius:6px"></div>
     </div>`;
   }
 
@@ -788,6 +925,7 @@
       typeModal.classList.remove('show');
       enableEditingOn(sec);
       buildSecList();
+      rebuildNav();
       sec.scrollIntoView({behavior:'smooth', block:'center'});
     };
   });
@@ -801,7 +939,7 @@
     const del = e.target.closest('.sec-del');
     if(del){
       const sec = del.closest('section');
-      if(confirm('이 섹션을 삭제할까요? 되돌릴 수 없어요.')){ sec.remove(); buildSecList(); }
+      if(confirm('이 섹션을 삭제할까요? 되돌릴 수 없어요.')){ sec.remove(); buildSecList(); rebuildNav(); }
       return;
     }
     const idel = e.target.closest('.item-del');
