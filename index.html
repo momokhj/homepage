@@ -90,7 +90,24 @@
   footer{padding:48px 0;text-align:center;color:var(--muted);font-size:13px;font-weight:300}
   footer strong{color:var(--ink);font-weight:600}
 
-  @media(max-width:640px){.three{grid-template-columns:1fr}section{padding:48px 0}}
+  @media(max-width:640px){
+    .three{grid-template-columns:1fr}
+    section{padding:48px 0}
+    header{padding:48px 0 44px}
+    h1{font-size:30px;line-height:1.25;letter-spacing:-.5px}
+    .subtitle{font-size:15px;margin-top:16px}
+    .eyebrow{font-size:11px;letter-spacing:2px;margin-bottom:14px}
+    .tag{font-size:12px;padding:6px 12px}
+    .meta{margin-top:22px;gap:8px}
+    h2{font-size:23px}
+    .sec-desc{font-size:14px}
+    .wrap{padding:0 18px}
+    .nav-inner a{font-size:13px;padding:7px 12px}
+  }
+  @media(max-width:380px){
+    h1{font-size:26px}
+    .subtitle{font-size:14px}
+  }
 
   /* ============ 관리자(편집) 모드 ============ */
   .hint{display:none;font-size:11px;color:var(--modu);font-weight:600;margin-top:6px;background:rgba(74,111,209,.10);padding:4px 9px;border-radius:6px}
@@ -231,7 +248,7 @@
   <div class="wrap hero-inner">
     <div class="eyebrow" data-edit="">제20회 디지털교육연구대회 · 일반화 자료</div>
     <span class="hint">↑ 클릭해서 문구를 고치세요</span>
-    <h1 data-edit="" style="font-size: 62px;"><span style="font-size: 65px;"><span style="font-size: 62px;">디지털 기반 '<span class="na">나도</span>-<span class="neo">너도</span>-<span class="modu">모두</span> 프로젝트'로</span><br>중증발달장애학생의 민주시민성 기르기</span></h1>
+    <h1 data-edit="">디지털 기반 '<span class="na">나도</span>-<span class="neo">너도</span>-<span class="modu">모두</span> 프로젝트'로<br>중증발달장애학생의 민주시민성 기르기</h1>
     <span class="hint">↑ 큰 제목입니다. 글자를 고쳐보세요</span>
     <p class="subtitle" data-edit="">중증발달장애학생의 민주시민성(자율생활·대인관계·사회참여 역량)을</p><div>기르는 디지털 경험 기반 프로젝트의 모든 자료를 한곳에 모았습니다.</div><p></p>
     <span class="hint">↑ 소개 문구</span>
